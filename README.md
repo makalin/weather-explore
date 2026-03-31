@@ -2,50 +2,64 @@
 
 A web-based tool for comparing average monthly weather patterns between cities using interactive 3D visualizations.
 
-![City Weather Explorer](https://img.shields.io/badge/version-1.1-blue)
+**Live site:** [https://makalin.github.io/weather-explore/](https://makalin.github.io/weather-explore/)
+
+![City Weather Explorer](https://img.shields.io/badge/version-1.2-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Features
 
-- **3D Carousel Visualization**: Compare up to 3 cities simultaneously on a rotating 3D radar chart
-- **Multiple Data Types**: View temperature, rainfall, or sunlight hours
-- **Historical Data**: Select data from any decade from the 1940s to present
-- **Temperature Options**: Toggle between actual and "feels like" temperatures, and between high/mean/low
-- **Unit Conversion**: Switch between Fahrenheit and Celsius
-- **Shareable URLs**: Share specific comparisons via URL with all settings preserved
-- **Responsive Design**: Works on both desktop and mobile devices
-- **Dark Mode**: Supports system preference with manual override
+- **3D carousel visualization**: Compare up to three cities on a rotating 3D radar-style chart
+- **Multiple data types**: Temperature, rainfall, or daily sunlight hours
+- **Historical data**: Choose a decade from the 1940s through the current decade
+- **Temperature options**: Actual vs. “feels like,” and high / mean / low
+- **Units**: Fahrenheit or Celsius for temperature
+- **Themes**: Light, Dark, Ocean, and Sunset—cycle with the theme button in the header
+- **Languages**: English and Turkish—use the **TR** / **EN** toggle in the header
+- **Tools menu**: Export comparison data as CSV, save the current chart as PNG, reset the 3D camera, clear all cities, and open keyboard shortcuts
+- **Year-range stats**: Under the legend, min / max / average for the active metric (when cities are selected)
+- **Shareable URLs**: Link includes data type, temperature options, unit, language, theme, and selected cities/decades
+- **Responsive layout**: Usable on desktop and mobile
+- **Caching**: Weather API responses are cached in the browser to limit repeat requests
 
-## How It Works
+## Saved settings
 
-### Data Source
-Weather data is fetched from the [Open-Meteo API](https://open-meteo.com/), which provides historical weather data including:
-- Daily high, low, and mean temperatures
-- Apparent (feels like) temperatures
-- Precipitation totals
-- Sunshine duration
+The app stores preferences in **localStorage** (and mirrors many of them in the URL when you share):
+
+| Key | Purpose |
+|-----|---------|
+| `theme` | Selected theme (`light`, `dark`, `ocean`, `sunset`) |
+| `unit` | `celsius` or `fahrenheit` |
+| `language` | `en` or `tr` |
+
+On first visit, theme follows the system light/dark preference until you pick a theme explicitly.
+
+## How it works
+
+### Data source
+
+Weather data comes from the [Open-Meteo API](https://open-meteo.com/) (historical archive), including daily highs, lows, means, apparent temperatures, precipitation, and sunshine duration.
 
 ### Visualization
-The 3D visualization is built with [Three.js](https://threejs.org/). Each city's data is displayed as a ring of connected points around a circular calendar, where:
-- The 12 months are arranged around the circle
-- Bar height represents the data value (temperature, rainfall, or sunlight hours)
-- Different colors distinguish between cities
+
+Built with [Three.js](https://threejs.org/). Months sit around a circle; height encodes the chosen metric; colors distinguish cities.
 
 ### Caching
-API responses are cached in localStorage to reduce API calls and improve load times for previously viewed city/decade combinations.
+
+Responses are keyed by location and decade and stored in `localStorage` to speed up revisits.
 
 ## Usage
 
-1. Search for a city using the search box
-2. Select a decade for historical data
-3. Add up to 2 more cities to compare
-4. Use the toggles to switch between data types and temperature metrics
-5. Drag the visualization to rotate and explore the data
-6. Click "Share" to copy a URL with your current comparison
+1. Search for a city and pick a decade
+2. Add up to two more cities to compare
+3. Use the toggles for data type, temperature flavor, and units
+4. Drag the 3D view to rotate; use **Tools** for CSV/PNG, reset view, or shortcuts
+5. Use **Share** to copy a link (or the system share sheet on supported devices)
+6. Switch **TR** / **EN** or cycle **theme** as needed; choices persist locally and in shared links
 
 ## Development
 
-This is a single-page application contained entirely in `index.html` with no build process required. Simply open the file in a browser or serve it from any static file server.
+Single-page app in `index.html`; no build step. Open the file locally or serve it with any static file server.
 
 ## Author
 

@@ -47,6 +47,39 @@
             --legend-border: rgba(255, 255, 255, 0.1);
         }
 
+        /* Additional themes */
+        [data-theme="ocean"] {
+            --bg-primary: #071a2b;
+            --bg-secondary: #0a2238;
+            --bg-chart: linear-gradient(180deg, #0b2740 0%, #061320 100%);
+            --text-primary: #e6f3ff;
+            --text-secondary: #9cc3dd;
+            --text-muted: #6f98b5;
+            --border-color: #14324a;
+            --border-light: #1c415f;
+            --input-bg: #061320;
+            --shadow: rgba(0, 0, 0, 0.35);
+            --shadow-strong: rgba(0, 0, 0, 0.5);
+            --legend-bg: rgba(10, 34, 56, 0.9);
+            --legend-border: rgba(255, 255, 255, 0.12);
+        }
+
+        [data-theme="sunset"] {
+            --bg-primary: #fff6f1;
+            --bg-secondary: #ffffff;
+            --bg-chart: linear-gradient(180deg, #fff1e7 0%, #ffe7f1 100%);
+            --text-primary: #2d2a2e;
+            --text-secondary: #6b5c66;
+            --text-muted: #8a7a86;
+            --border-color: #ead7de;
+            --border-light: #e4cdd6;
+            --input-bg: #fff6f1;
+            --shadow: rgba(0, 0, 0, 0.06);
+            --shadow-strong: rgba(0, 0, 0, 0.1);
+            --legend-bg: rgba(255, 255, 255, 0.9);
+            --legend-border: rgba(0, 0, 0, 0.08);
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--bg-primary);
@@ -625,6 +658,152 @@
             fill: currentColor;
         }
 
+        .tools-wrap {
+            position: relative;
+            z-index: 200;
+        }
+
+        .tools-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            min-width: 220px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 8px 24px var(--shadow-strong);
+            padding: 6px 0;
+            z-index: 201;
+        }
+
+        .tools-menu.open {
+            display: block;
+        }
+
+        .tools-item {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 14px;
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .tools-item:hover {
+            background: rgba(39, 174, 96, 0.12);
+        }
+
+        .tools-item:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal-dialog {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            max-width: 420px;
+            width: 100%;
+            padding: 20px 22px;
+            box-shadow: 0 16px 48px var(--shadow-strong);
+        }
+
+        .modal-dialog h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: var(--text-primary);
+        }
+
+        .shortcut-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.85rem;
+        }
+
+        .shortcut-row:last-child {
+            border-bottom: none;
+        }
+
+        .shortcut-keys {
+            font-family: ui-monospace, monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .modal-close {
+            margin-top: 16px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .modal-close:hover {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .stats-summary {
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-light);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .stats-summary.visible {
+            display: block;
+        }
+
+        .stats-summary .stats-title {
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.7rem;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .stats-row span:first-child {
+            color: var(--text-primary);
+        }
+
         .theme-btn {
             display: flex;
             align-items: center;
@@ -658,11 +837,11 @@
             display: none;
         }
 
-        [data-theme="dark"] .theme-btn .sun-icon {
+        [data-theme-mode="dark"] .theme-btn .sun-icon {
             display: none;
         }
 
-        [data-theme="dark"] .theme-btn .moon-icon {
+        [data-theme-mode="dark"] .theme-btn .moon-icon {
             display: block;
         }
 
@@ -755,9 +934,25 @@
     <div class="container">
         <header>
             <h1>City Weather Explorer</h1>
-            <p class="subtitle">3D comparison of monthly weather patterns</p>
+            <p class="subtitle" data-i18n="subtitle">3D comparison of monthly weather patterns</p>
             <div class="header-buttons">
-                <button class="share-btn" id="shareBtn">
+                <div class="tools-wrap" id="toolsWrap">
+                    <button type="button" class="share-btn" id="toolsBtn" aria-expanded="false" aria-haspopup="true" aria-controls="toolsMenu" title="Export, screenshot, and more">
+                        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 3 4l2 6 2.5-2.5c1.2-1.2 3.1-1 4.3.2 1.1 1.1 1.3 3 .2 4.3L6 15l2 6 6-2-1.6-1.6c1.1.8 2.5 1.2 3.9 1.2 1.6 0 3.1-.6 4.2-1.8 2-1.9 2.5-4.6 1.7-6.9l9-9.1z"/></svg>
+                        <span id="toolsBtnText" data-i18n="tools">Tools</span>
+                    </button>
+                    <div class="tools-menu" id="toolsMenu" role="menu">
+                        <button type="button" class="tools-item" id="exportCsvBtn" role="menuitem" data-i18n="exportCsv">Export data (CSV)</button>
+                        <button type="button" class="tools-item" id="exportPngBtn" role="menuitem" data-i18n="exportPng">Save chart as PNG</button>
+                        <button type="button" class="tools-item" id="resetViewBtn" role="menuitem" data-i18n="resetView">Reset 3D view</button>
+                        <button type="button" class="tools-item" id="clearCitiesBtn" role="menuitem" data-i18n="clearCities">Clear all cities</button>
+                        <button type="button" class="tools-item" id="shortcutsBtn" role="menuitem" data-i18n="shortcuts">Keyboard shortcuts…</button>
+                    </div>
+                </div>
+                <button class="share-btn" id="langToggle" title="Türkçe / English">
+                    <span id="langToggleText">TR</span>
+                </button>
+                <button class="share-btn" id="shareBtn" title="Copy link (native share when available)">
                     <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
                     <span id="shareBtnText">Share</span>
                 </button>
@@ -771,27 +966,27 @@
         <div class="main-layout">
             <div class="left-panel">
                 <div class="chart-type-selector">
-                    <label>Data Type</label>
+                    <label data-i18n="dataType">Data Type</label>
                     <div class="toggle-group" id="dataTypeToggle">
-                        <button class="toggle-btn active" data-value="temperature">Temperature</button>
-                        <button class="toggle-btn" data-value="rainfall">Rainfall</button>
-                        <button class="toggle-btn" data-value="sunlight">Sunlight</button>
+                        <button class="toggle-btn active" data-value="temperature" data-i18n="temperature">Temperature</button>
+                        <button class="toggle-btn" data-value="rainfall" data-i18n="rainfall">Rainfall</button>
+                        <button class="toggle-btn" data-value="sunlight" data-i18n="sunlight">Sunlight</button>
                     </div>
                 </div>
 
                 <div class="chart-type-selector" id="tempTypeSelector">
-                    <label>Temperature Type</label>
+                    <label data-i18n="temperatureType">Temperature Type</label>
                     <div class="toggle-group" id="tempTypeToggle">
-                        <button class="toggle-btn active" data-value="actual">Average</button>
-                        <button class="toggle-btn" data-value="feels">Feels Like</button>
+                        <button class="toggle-btn active" data-value="actual" data-i18n="average">Average</button>
+                        <button class="toggle-btn" data-value="feels" data-i18n="feelsLike">Feels Like</button>
                     </div>
                     <div class="toggle-group" id="tempMetricToggle">
-                        <button class="toggle-btn active" data-value="high">High</button>
-                        <button class="toggle-btn" data-value="avg">Mean</button>
-                        <button class="toggle-btn" data-value="low">Low</button>
+                        <button class="toggle-btn active" data-value="high" data-i18n="high">High</button>
+                        <button class="toggle-btn" data-value="avg" data-i18n="mean">Mean</button>
+                        <button class="toggle-btn" data-value="low" data-i18n="low">Low</button>
                     </div>
                     <div class="unit-toggle-row">
-                        <span>Unit</span>
+                        <span data-i18n="unit">Unit</span>
                         <div class="unit-toggle-control">
                             <span class="unit-label">°F</span>
                             <div class="toggle-switch" id="unitToggle"></div>
@@ -802,13 +997,13 @@
 
                 <div class="controls">
                     <div class="city-selector">
-                        <label><span class="color-indicator" style="background: #e67e22;"></span>City 1</label>
+                        <label><span class="color-indicator" style="background: #e67e22;"></span><span data-i18n="city">City</span> 1</label>
                         <div class="search-container">
-                            <input type="text" class="city-input" id="search1" placeholder="Search for a city..." autocomplete="off">
+                            <input type="text" class="city-input" id="search1" placeholder="Search for a city..." autocomplete="off" data-i18n-placeholder="searchCity">
                             <div class="autocomplete-dropdown" id="dropdown1"></div>
                         </div>
                         <div class="decade-selector">
-                            <label>Decade</label>
+                            <label data-i18n="decade">Decade</label>
                             <select class="decade-select" id="decade1"></select>
                         </div>
                         <div id="selected1"></div>
@@ -816,13 +1011,13 @@
                         <div id="error1"></div>
                     </div>
                     <div class="city-selector">
-                        <label><span class="color-indicator" style="background: #27ae60;"></span>City 2</label>
+                        <label><span class="color-indicator" style="background: #27ae60;"></span><span data-i18n="city">City</span> 2</label>
                         <div class="search-container">
-                            <input type="text" class="city-input" id="search2" placeholder="Search for a city..." autocomplete="off">
+                            <input type="text" class="city-input" id="search2" placeholder="Search for a city..." autocomplete="off" data-i18n-placeholder="searchCity">
                             <div class="autocomplete-dropdown" id="dropdown2"></div>
                         </div>
                         <div class="decade-selector">
-                            <label>Decade</label>
+                            <label data-i18n="decade">Decade</label>
                             <select class="decade-select" id="decade2"></select>
                         </div>
                         <div id="selected2"></div>
@@ -830,13 +1025,13 @@
                         <div id="error2"></div>
                     </div>
                     <div class="city-selector">
-                        <label><span class="color-indicator" style="background: #9b59b6;"></span>City 3</label>
+                        <label><span class="color-indicator" style="background: #9b59b6;"></span><span data-i18n="city">City</span> 3</label>
                         <div class="search-container">
-                            <input type="text" class="city-input" id="search3" placeholder="Search for a city..." autocomplete="off">
+                            <input type="text" class="city-input" id="search3" placeholder="Search for a city..." autocomplete="off" data-i18n-placeholder="searchCity">
                             <div class="autocomplete-dropdown" id="dropdown3"></div>
                         </div>
                         <div class="decade-selector">
-                            <label>Decade</label>
+                            <label data-i18n="decade">Decade</label>
                             <select class="decade-select" id="decade3"></select>
                         </div>
                         <div id="selected3"></div>
@@ -845,49 +1040,49 @@
                     </div>
                 </div>
 
-                <p class="instructions">Drag to rotate the 3D plot</p>
+                <p class="instructions" data-i18n="dragToRotate">Drag to rotate the 3D plot</p>
             </div>
 
             <div class="right-panel">
                 <div class="chart-container">
                     <div class="chart-card active" id="highCard">
                         <div class="chart-wrapper" id="highChartWrapper">
-                            <div class="no-data-message" id="noDataHigh">Select cities to compare</div>
+                            <div class="no-data-message" id="noDataHigh" data-i18n="selectCities">Select cities to compare</div>
                         </div>
                     </div>
                     <div class="chart-card" id="avgCard">
                         <div class="chart-wrapper" id="avgChartWrapper">
-                            <div class="no-data-message" id="noDataAvg">Select cities to compare</div>
+                            <div class="no-data-message" id="noDataAvg" data-i18n="selectCities">Select cities to compare</div>
                         </div>
                     </div>
                     <div class="chart-card" id="lowCard">
                         <div class="chart-wrapper" id="lowChartWrapper">
-                            <div class="no-data-message" id="noDataLow">Select cities to compare</div>
+                            <div class="no-data-message" id="noDataLow" data-i18n="selectCities">Select cities to compare</div>
                         </div>
                     </div>
                     <div class="chart-card" id="feelsHighCard">
                         <div class="chart-wrapper" id="feelsHighChartWrapper">
-                            <div class="no-data-message" id="noDataFeelsHigh">Select cities to compare</div>
+                            <div class="no-data-message" id="noDataFeelsHigh" data-i18n="selectCities">Select cities to compare</div>
                         </div>
                     </div>
                     <div class="chart-card" id="feelsAvgCard">
                         <div class="chart-wrapper" id="feelsAvgChartWrapper">
-                            <div class="no-data-message" id="noDataFeelsAvg">Select cities to compare</div>
+                            <div class="no-data-message" id="noDataFeelsAvg" data-i18n="selectCities">Select cities to compare</div>
                         </div>
                     </div>
                     <div class="chart-card" id="feelsLowCard">
                         <div class="chart-wrapper" id="feelsLowChartWrapper">
-                            <div class="no-data-message" id="noDataFeelsLow">Select cities to compare</div>
+                            <div class="no-data-message" id="noDataFeelsLow" data-i18n="selectCities">Select cities to compare</div>
                         </div>
                     </div>
                     <div class="chart-card" id="rainfallCard">
                         <div class="chart-wrapper" id="rainfallChartWrapper">
-                            <div class="no-data-message" id="noDataRainfall">Select cities to compare</div>
+                            <div class="no-data-message" id="noDataRainfall" data-i18n="selectCities">Select cities to compare</div>
                         </div>
                     </div>
                     <div class="chart-card" id="sunlightCard">
                         <div class="chart-wrapper" id="sunlightChartWrapper">
-                            <div class="no-data-message" id="noDataSunlight">Select cities to compare</div>
+                            <div class="no-data-message" id="noDataSunlight" data-i18n="selectCities">Select cities to compare</div>
                         </div>
                     </div>
                     <div class="legend-container">
@@ -903,8 +1098,19 @@
                             <div class="legend-color" style="background: #9b59b6;"></div>
                             <span class="legend-text" id="legendText3">City 3</span>
                         </div>
+                        <div class="stats-summary" id="statsSummary" aria-live="polite"></div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="modal-backdrop" id="shortcutsModal" role="dialog" aria-modal="true" aria-labelledby="shortcutsTitle">
+            <div class="modal-dialog">
+                <h2 id="shortcutsTitle" data-i18n="keyboardShortcuts">Keyboard shortcuts</h2>
+                <div class="shortcut-row"><span data-i18n="shortcutReset">Reset 3D camera</span><span class="shortcut-keys">R</span></div>
+                <div class="shortcut-row"><span data-i18n="shortcutHelp">This help</span><span class="shortcut-keys">?</span></div>
+                <div class="shortcut-row"><span data-i18n="shortcutClose">Close menu / dialog</span><span class="shortcut-keys">Esc</span></div>
+                <button type="button" class="modal-close" id="shortcutsModalClose" data-i18n="close">Close</button>
             </div>
         </div>
 
@@ -944,6 +1150,211 @@
             return decades.reverse(); // Most recent first
         })();
 
+        // i18n
+        const I18N = {
+            en: {
+                subtitle: '3D comparison of monthly weather patterns',
+                tools: 'Tools',
+                exportCsv: 'Export data (CSV)',
+                exportPng: 'Save chart as PNG',
+                resetView: 'Reset 3D view',
+                clearCities: 'Clear all cities',
+                shortcuts: 'Keyboard shortcuts…',
+                dataType: 'Data Type',
+                temperature: 'Temperature',
+                rainfall: 'Rainfall',
+                sunlight: 'Sunlight',
+                temperatureType: 'Temperature Type',
+                average: 'Average',
+                feelsLike: 'Feels Like',
+                high: 'High',
+                mean: 'Mean',
+                low: 'Low',
+                unit: 'Unit',
+                city: 'City',
+                decade: 'Decade',
+                searchCity: 'Search for a city...',
+                dragToRotate: 'Drag to rotate the 3D plot',
+                selectCities: 'Select cities to compare',
+                keyboardShortcuts: 'Keyboard shortcuts',
+                shortcutReset: 'Reset 3D camera',
+                shortcutHelp: 'This help',
+                shortcutClose: 'Close menu / dialog',
+                close: 'Close',
+                share: 'Share',
+                copied: 'Copied!',
+                theme: 'Theme',
+                themeLight: 'Light',
+                themeDark: 'Dark',
+                themeOcean: 'Ocean',
+                themeSunset: 'Sunset',
+                exportNeedCity: 'Select at least one city to export.',
+                pngNeedCity: 'Select at least one city to save the chart.',
+                chartNotReady: 'Chart is not ready yet.',
+                pngFailed: 'Could not save image. Your browser may block canvas export.',
+                loadingCity: (name) => `Loading ${name}...`,
+                loadingDecade: (decade) => `Loading ${decade}s data...`,
+                loadFailedCity: (name) => `Failed to load ${name}. Please try again.`,
+                loadFailedGeneric: 'Failed to load data. Please try again.',
+                statsTitle: (title) => `Year range (${title})`,
+                statsMinMaxAvg: (minStr, maxStr, meanStr) => `min ${minStr} · max ${maxStr} · avg ${meanStr}`,
+                metricLabel: {
+                    high: 'High temp',
+                    low: 'Low temp',
+                    avg: 'Mean temp',
+                    feelsHigh: 'Feels high',
+                    feelsLow: 'Feels low',
+                    feelsAvg: 'Feels mean',
+                    rainfall: 'Monthly rainfall',
+                    sunlight: 'Daily sunlight'
+                }
+            },
+            tr: {
+                subtitle: 'Aylık hava desenlerinin 3B karşılaştırması',
+                tools: 'Araçlar',
+                exportCsv: 'Veriyi dışa aktar (CSV)',
+                exportPng: 'Grafiği PNG olarak kaydet',
+                resetView: '3B görünümü sıfırla',
+                clearCities: 'Tüm şehirleri temizle',
+                shortcuts: 'Klavye kısayolları…',
+                dataType: 'Veri türü',
+                temperature: 'Sıcaklık',
+                rainfall: 'Yağış',
+                sunlight: 'Güneşlenme',
+                temperatureType: 'Sıcaklık türü',
+                average: 'Ortalama',
+                feelsLike: 'Hissedilen',
+                high: 'Yüksek',
+                mean: 'Ortalama',
+                low: 'Düşük',
+                unit: 'Birim',
+                city: 'Şehir',
+                decade: 'On yıl',
+                searchCity: 'Şehir ara...',
+                dragToRotate: '3B grafiği döndürmek için sürükleyin',
+                selectCities: 'Karşılaştırmak için şehir seçin',
+                keyboardShortcuts: 'Klavye kısayolları',
+                shortcutReset: '3B kamerayı sıfırla',
+                shortcutHelp: 'Bu yardım',
+                shortcutClose: 'Menüyü / iletişim kutusunu kapat',
+                close: 'Kapat',
+                share: 'Paylaş',
+                copied: 'Kopyalandı!',
+                theme: 'Tema',
+                themeLight: 'Açık',
+                themeDark: 'Koyu',
+                themeOcean: 'Okyanus',
+                themeSunset: 'Gün batımı',
+                exportNeedCity: 'Dışa aktarmak için en az bir şehir seçin.',
+                pngNeedCity: 'Grafiği kaydetmek için en az bir şehir seçin.',
+                chartNotReady: 'Grafik henüz hazır değil.',
+                pngFailed: 'Görsel kaydedilemedi. Tarayıcınız tuval dışa aktarımını engelliyor olabilir.',
+                loadingCity: (name) => `${name} yükleniyor...`,
+                loadingDecade: (decade) => `${decade}s verisi yükleniyor...`,
+                loadFailedCity: (name) => `${name} yüklenemedi. Lütfen tekrar deneyin.`,
+                loadFailedGeneric: 'Veri yüklenemedi. Lütfen tekrar deneyin.',
+                statsTitle: (title) => `Yıl aralığı (${title})`,
+                statsMinMaxAvg: (minStr, maxStr, meanStr) => `min ${minStr} · maks ${maxStr} · ort ${meanStr}`,
+                metricLabel: {
+                    high: 'En yüksek sıcaklık',
+                    low: 'En düşük sıcaklık',
+                    avg: 'Ortalama sıcaklık',
+                    feelsHigh: 'Hissedilen (yüksek)',
+                    feelsLow: 'Hissedilen (düşük)',
+                    feelsAvg: 'Hissedilen (ortalama)',
+                    rainfall: 'Aylık yağış',
+                    sunlight: 'Günlük güneşlenme'
+                }
+            }
+        };
+
+        let language = 'en';
+        function t(key, ...args) {
+            const dict = I18N[language] || I18N.en;
+            const v = dict[key];
+            if (typeof v === 'function') return v(...args);
+            return v ?? (I18N.en[key] ?? key);
+        }
+
+        function applyTranslations() {
+            document.documentElement.lang = language;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const k = el.getAttribute('data-i18n');
+                el.textContent = t(k);
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const k = el.getAttribute('data-i18n-placeholder');
+                el.setAttribute('placeholder', t(k));
+            });
+
+            const shareBtnText = document.getElementById('shareBtnText');
+            if (shareBtnText && shareBtnText.textContent !== t('copied')) {
+                shareBtnText.textContent = t('share');
+            }
+
+            const langText = document.getElementById('langToggleText');
+            if (langText) langText.textContent = language === 'tr' ? 'EN' : 'TR';
+
+            updateThemeButtonTitle();
+            updateStatsSummary();
+        }
+
+        function setLanguage(next) {
+            language = next === 'tr' ? 'tr' : 'en';
+            localStorage.setItem('language', language);
+            applyTranslations();
+            updateBrowserURL();
+        }
+
+        function loadLanguageFromURLorStorage() {
+            const params = new URLSearchParams(window.location.search);
+            const urlLang = params.get('lang');
+            const saved = localStorage.getItem('language');
+            const initial = (urlLang || saved || 'en').toLowerCase();
+            language = initial === 'tr' ? 'tr' : 'en';
+            applyTranslations();
+        }
+
+        // Themes
+        const THEMES = {
+            light: { isDark: false },
+            dark: { isDark: true },
+            ocean: { isDark: true },
+            sunset: { isDark: false }
+        };
+        let themeName = 'light';
+
+        function setTheme(nextTheme) {
+            const name = THEMES[nextTheme] ? nextTheme : 'light';
+            themeName = name;
+            isDarkMode = THEMES[name].isDark;
+            document.documentElement.setAttribute('data-theme', name);
+            document.documentElement.setAttribute('data-theme-mode', isDarkMode ? 'dark' : 'light');
+            localStorage.setItem('theme', name);
+            updateSceneColors();
+            updateCharts();
+            updateBrowserURL();
+            updateThemeButtonTitle();
+        }
+
+        function cycleTheme() {
+            const order = ['light', 'dark', 'ocean', 'sunset'];
+            const idx = Math.max(0, order.indexOf(themeName));
+            setTheme(order[(idx + 1) % order.length]);
+        }
+
+        function updateThemeButtonTitle() {
+            const el = document.getElementById('themeToggle');
+            if (!el) return;
+            const labelKey =
+                themeName === 'light' ? 'themeLight' :
+                themeName === 'dark' ? 'themeDark' :
+                themeName === 'ocean' ? 'themeOcean' :
+                themeName === 'sunset' ? 'themeSunset' :
+                'themeLight';
+            el.title = `${t('theme')}: ${t(labelKey)}`;
+        }
+
         // State
         const selectedCities = [null, null, null];
         const selectedDecades = [DECADES[0].value, DECADES[0].value, DECADES[0].value]; // Default to current decade
@@ -978,35 +1389,23 @@
             switchChart(chartType);
         }
 
-        function toggleTheme() {
-            isDarkMode = !isDarkMode;
-            document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-            updateSceneColors();
-        }
-
         function loadTheme() {
             const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                // Use saved preference
-                isDarkMode = savedTheme === 'dark';
-            } else {
-                // Use system preference
-                isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme && THEMES[savedTheme]) {
+                setTheme(savedTheme);
+                return;
             }
-            if (isDarkMode) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
+
+            // Default: follow system preference
+            const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(systemDark ? 'dark' : 'light');
 
             // Listen for system preference changes (only applies if no saved preference)
             if (window.matchMedia) {
                 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                    if (!localStorage.getItem('theme')) {
-                        isDarkMode = e.matches;
-                        document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-                        updateSceneColors();
-                        updateCharts();
-                    }
+                    // Only follow system if user hasn't chosen a theme explicitly
+                    const hasExplicit = localStorage.getItem('theme') && THEMES[localStorage.getItem('theme')];
+                    if (!hasExplicit) setTheme(e.matches ? 'dark' : 'light');
                 });
             }
         }
@@ -1054,8 +1453,9 @@
             params.set('dataType', dataType);
             params.set('tempType', tempType);
             params.set('tempMetric', tempMetric);
+            params.set('lang', language);
             if (useCelsius) params.set('unit', 'c');
-            if (isDarkMode) params.set('theme', 'dark');
+            if (themeName !== 'light') params.set('theme', themeName);
 
             // Encode cities
             selectedCities.forEach((city, i) => {
@@ -1077,7 +1477,19 @@
             const params = new URLSearchParams(window.location.search);
             if (params.size === 0) return false;
 
+            if (params.has('lang')) {
+                const lang = params.get('lang');
+                language = lang === 'tr' ? 'tr' : 'en';
+                localStorage.setItem('language', language);
+                applyTranslations();
+            }
+
             // Decode settings
+            if (params.has('theme')) {
+                const th = params.get('theme');
+                if (THEMES[th]) setTheme(th);
+            }
+
             if (params.has('dataType')) {
                 dataType = params.get('dataType');
                 document.querySelectorAll('#dataTypeToggle .toggle-btn').forEach(btn => {
@@ -1106,9 +1518,7 @@
                 updateUnitDisplay();
             }
 
-            if (params.get('theme') === 'dark' && !isDarkMode) {
-                toggleTheme();
-            }
+            // theme handled above
 
             // Switch to correct chart
             updateTempTypeToggle();
@@ -1155,7 +1565,7 @@
             const decade = selectedDecades[index];
 
             errorDiv.innerHTML = '';
-            loadingDiv.innerHTML = `<div class="loading-indicator"><div class="spinner"></div>Loading ${city.name}...</div>`;
+            loadingDiv.innerHTML = `<div class="loading-indicator"><div class="spinner"></div>${t('loadingCity', city.name)}</div>`;
 
             try {
                 const tempData = await fetchTemperatureData(city.latitude, city.longitude, decade);
@@ -1175,8 +1585,145 @@
                 updateCharts();
             } catch (error) {
                 loadingDiv.innerHTML = '';
-                errorDiv.innerHTML = `<div class="error-message">Failed to load ${city.name}. Please try again.</div>`;
+                errorDiv.innerHTML = `<div class="error-message">${t('loadFailedCity', city.name)}</div>`;
             }
+        }
+
+        function formatValueForMetric(rawFahrenheit, metricKey) {
+            if (metricKey === 'rainfall') {
+                return `${rawFahrenheit} mm`;
+            }
+            if (metricKey === 'sunlight') {
+                return `${rawFahrenheit} h`;
+            }
+            const n = convertTemp(rawFahrenheit);
+            const u = useCelsius ? '°C' : '°F';
+            return `${n}${u}`;
+        }
+
+        function updateStatsSummary() {
+            const el = document.getElementById('statsSummary');
+            const metricKey = getChartTypeKey();
+            if (!selectedCities.some(c => c !== null)) {
+                el.innerHTML = '';
+                el.classList.remove('visible');
+                return;
+            }
+            const title = (I18N[language]?.metricLabel?.[metricKey]) || (I18N.en.metricLabel?.[metricKey]) || metricKey;
+            let html = `<div class="stats-title">${t('statsTitle', title)}</div>`;
+            selectedCities.forEach((city, origIdx) => {
+                if (!city) return;
+                const vals = city[metricKey];
+                if (!vals || vals.length !== 12) return;
+                const minV = Math.min(...vals);
+                const maxV = Math.max(...vals);
+                const meanV = vals.reduce((a, b) => a + b, 0) / 12;
+                const meanRounded = metricKey === 'sunlight' ? Math.round(meanV * 10) / 10 : Math.round(meanV);
+                const minStr = formatValueForMetric(minV, metricKey);
+                const maxStr = formatValueForMetric(maxV, metricKey);
+                const meanStr = formatValueForMetric(meanRounded, metricKey);
+                const name = COLORS[origIdx] ? `<span style="color:${COLORS[origIdx].css}">${city.name}</span>` : city.name;
+                html += `<div class="stats-row"><span>${name}</span><span>${t('statsMinMaxAvg', minStr, maxStr, meanStr)}</span></div>`;
+            });
+            el.innerHTML = html;
+            el.classList.add('visible');
+        }
+
+        function exportComparisonCSV() {
+            const hasCity = selectedCities.some(c => c !== null);
+            if (!hasCity) {
+                alert(t('exportNeedCity'));
+                return;
+            }
+            const header = ['city', 'decade', 'month', 'high_f', 'low_f', 'mean_f', 'feels_high_f', 'feels_low_f', 'feels_mean_f', 'rainfall_mm', 'sunlight_hours_daily_avg'];
+            const rows = [header];
+            selectedCities.forEach(city => {
+                if (!city) return;
+                for (let m = 0; m < 12; m++) {
+                    rows.push([
+                        city.name,
+                        city.decade,
+                        MONTHS[m],
+                        city.high[m], city.low[m], city.avg[m],
+                        city.feelsHigh[m], city.feelsLow[m], city.feelsAvg[m],
+                        city.rainfall[m], city.sunlight[m]
+                    ]);
+                }
+            });
+            const csv = rows.map(r => r.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'weather-explore-data.csv';
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        function downloadActiveChartPNG() {
+            const hasCity = selectedCities.some(c => c !== null);
+            if (!hasCity) {
+                alert(t('pngNeedCity'));
+                return;
+            }
+            const chartKey = getChartTypeKey();
+            const renderer = renderers[chartKey];
+            if (!renderer || !renderer.domElement) {
+                alert(t('chartNotReady'));
+                return;
+            }
+            try {
+                const dataUrl = renderer.domElement.toDataURL('image/png');
+                const a = document.createElement('a');
+                a.href = dataUrl;
+                a.download = `weather-explore-${chartKey}.png`;
+                a.click();
+            } catch (e) {
+                console.error(e);
+                alert(t('pngFailed'));
+            }
+        }
+
+        function resetAllCameraViews() {
+            const defaultPos = new THREE.Vector3(7.9, 4.7, 7.9);
+            const defaultTarget = new THREE.Vector3(0, 1.5, 0);
+            CHART_TYPES.forEach(key => {
+                if (cameras[key] && controls[key]) {
+                    cameras[key].position.copy(defaultPos);
+                    controls[key].target.copy(defaultTarget);
+                    controls[key].update();
+                }
+            });
+        }
+
+        function clearAllCities() {
+            for (let i = 0; i < 3; i++) {
+                selectedCities[i] = null;
+                document.getElementById(`selected${i + 1}`).innerHTML = '';
+                document.getElementById(`error${i + 1}`).innerHTML = '';
+                document.getElementById(`search${i + 1}`).value = '';
+            }
+            updateCharts();
+            updateBrowserURL();
+        }
+
+        function setToolsMenuOpen(open) {
+            const menu = document.getElementById('toolsMenu');
+            const btn = document.getElementById('toolsBtn');
+            menu.classList.toggle('open', open);
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
+        function toggleToolsMenu() {
+            const menu = document.getElementById('toolsMenu');
+            setToolsMenuOpen(!menu.classList.contains('open'));
+        }
+
+        function openShortcutsModal() {
+            document.getElementById('shortcutsModal').classList.add('open');
+        }
+
+        function closeShortcutsModal() {
+            document.getElementById('shortcutsModal').classList.remove('open');
         }
 
         async function shareCurrentState() {
@@ -1184,17 +1731,31 @@
             const shareBtn = document.getElementById('shareBtn');
             const shareBtnText = document.getElementById('shareBtnText');
 
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'City Weather Explorer',
+                        text: 'Compare monthly weather between cities',
+                        url: url
+                    });
+                    window.history.replaceState({}, '', url);
+                    return;
+                } catch (err) {
+                    if (err && err.name === 'AbortError') return;
+                }
+            }
+
             try {
                 await navigator.clipboard.writeText(url);
                 shareBtn.classList.add('copied');
-                shareBtnText.textContent = 'Copied!';
+                shareBtnText.textContent = t('copied');
 
                 // Also update URL bar without reloading
                 window.history.replaceState({}, '', url);
 
                 setTimeout(() => {
                     shareBtn.classList.remove('copied');
-                    shareBtnText.textContent = 'Share';
+                    shareBtnText.textContent = t('share');
                 }, 2000);
             } catch (err) {
                 // Fallback for older browsers
@@ -1206,12 +1767,12 @@
                 document.body.removeChild(textArea);
 
                 shareBtn.classList.add('copied');
-                shareBtnText.textContent = 'Copied!';
+                shareBtnText.textContent = t('copied');
                 window.history.replaceState({}, '', url);
 
                 setTimeout(() => {
                     shareBtn.classList.remove('copied');
-                    shareBtnText.textContent = 'Share';
+                    shareBtnText.textContent = t('share');
                 }, 2000);
             }
         }
@@ -1243,6 +1804,7 @@
 
             // Trigger resize to ensure canvas fills container
             setTimeout(() => handleResize(), 10);
+            updateStatsSummary();
         }
 
         function init3DScene(containerId, sceneKey) {
@@ -1260,7 +1822,7 @@
             cameras[sceneKey] = camera;
 
             // Renderer
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
             renderer.setSize(width, height);
             renderer.setPixelRatio(window.devicePixelRatio);
             container.appendChild(renderer.domElement);
@@ -1639,6 +2201,7 @@
                     cityMeshes[key].push(mesh);
                 });
             });
+            updateStatsSummary();
         }
 
         function setHoveredCity(cityIndex) {
@@ -2090,7 +2653,7 @@
             input.value = '';
             errorDiv.innerHTML = '';
 
-            loadingDiv.innerHTML = `<div class="loading-indicator"><div class="spinner"></div>Loading ${decade}s data...</div>`;
+            loadingDiv.innerHTML = `<div class="loading-indicator"><div class="spinner"></div>${t('loadingDecade', decade)}</div>`;
 
             try {
                 const tempData = await fetchTemperatureData(city.latitude, city.longitude, decade);
@@ -2112,7 +2675,7 @@
 
             } catch (error) {
                 loadingDiv.innerHTML = '';
-                errorDiv.innerHTML = `<div class="error-message">Failed to load data. Please try again.</div>`;
+                errorDiv.innerHTML = `<div class="error-message">${t('loadFailedGeneric')}</div>`;
             }
         }
 
@@ -2128,7 +2691,7 @@
                 const errorDiv = document.getElementById(`error${index + 1}`);
                 errorDiv.innerHTML = '';
 
-                loadingDiv.innerHTML = `<div class="loading-indicator"><div class="spinner"></div>Loading ${newDecade}s data...</div>`;
+                loadingDiv.innerHTML = `<div class="loading-indicator"><div class="spinner"></div>${t('loadingDecade', newDecade)}</div>`;
 
                 try {
                     const tempData = await fetchTemperatureData(city.latitude, city.longitude, newDecade);
@@ -2146,7 +2709,7 @@
 
                 } catch (error) {
                     loadingDiv.innerHTML = '';
-                    errorDiv.innerHTML = `<div class="error-message">Failed to load data. Please try again.</div>`;
+                    errorDiv.innerHTML = `<div class="error-message">${t('loadFailedGeneric')}</div>`;
                 }
             }
         }
@@ -2187,6 +2750,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Load saved theme
             loadTheme();
+            loadLanguageFromURLorStorage();
 
             // Initialize all chart scenes
             CHART_TYPES.forEach(key => {
@@ -2256,12 +2820,9 @@
                 });
             });
 
-            // Theme toggle
+            // Theme cycle
             document.getElementById('themeToggle').addEventListener('click', () => {
-                toggleTheme();
-                // Rebuild city meshes with new label colors
-                updateCharts();
-                updateBrowserURL();
+                cycleTheme();
             });
 
             // Unit toggle
@@ -2270,6 +2831,60 @@
 
             // Share button
             document.getElementById('shareBtn').addEventListener('click', shareCurrentState);
+            document.getElementById('langToggle').addEventListener('click', () => setLanguage(language === 'tr' ? 'en' : 'tr'));
+
+            // Tools menu
+            const toolsWrap = document.getElementById('toolsWrap');
+            document.getElementById('toolsBtn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleToolsMenu();
+            });
+            document.addEventListener('click', () => setToolsMenuOpen(false));
+            toolsWrap.addEventListener('click', (e) => e.stopPropagation());
+
+            document.getElementById('exportCsvBtn').addEventListener('click', () => {
+                exportComparisonCSV();
+                setToolsMenuOpen(false);
+            });
+            document.getElementById('exportPngBtn').addEventListener('click', () => {
+                downloadActiveChartPNG();
+                setToolsMenuOpen(false);
+            });
+            document.getElementById('resetViewBtn').addEventListener('click', () => {
+                resetAllCameraViews();
+                setToolsMenuOpen(false);
+            });
+            document.getElementById('clearCitiesBtn').addEventListener('click', () => {
+                clearAllCities();
+                setToolsMenuOpen(false);
+            });
+            document.getElementById('shortcutsBtn').addEventListener('click', () => {
+                setToolsMenuOpen(false);
+                openShortcutsModal();
+            });
+
+            document.getElementById('shortcutsModalClose').addEventListener('click', closeShortcutsModal);
+            document.getElementById('shortcutsModal').addEventListener('click', (e) => {
+                if (e.target.id === 'shortcutsModal') closeShortcutsModal();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                const t = e.target;
+                const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable);
+                if (e.key === 'Escape') {
+                    setToolsMenuOpen(false);
+                    closeShortcutsModal();
+                    return;
+                }
+                if (typing) return;
+                if (e.key === 'r' || e.key === 'R') {
+                    resetAllCameraViews();
+                }
+                if (e.key === '?' || (e.shiftKey && e.key === '/')) {
+                    e.preventDefault();
+                    openShortcutsModal();
+                }
+            });
 
             // Legend hover interactions
             for (let i = 0; i < 3; i++) {
